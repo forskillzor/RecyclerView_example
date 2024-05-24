@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">m8_animation_sharedElement</string>
+    <string name="car_silvia">Toyota Silvia</string>
+    <string name="image_transition_name">Image transition name</string>
+    <string name="text_transition_name">Text transition name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
