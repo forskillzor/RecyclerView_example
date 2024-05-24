@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.m8_animation_sharedelement_fragment.databinding.FragmentRecyclerViewBinding
 
@@ -15,9 +17,24 @@ class RecyclerViewFragment : Fragment() {
     private var _adapter: CarAdapter? = null
     private val adapter get() = _adapter!!
 
+    fun commit(sharedImage: View, sharedText: View, position: Int) {
+        val bundle = Bundle().apply {
+            putInt(CarDetailsFragment.POSITION, position)
+        }
+        ViewCompat.setTransitionName(sharedImage, "image_transition_item")
+        ViewCompat.setTransitionName(sharedText, "text_transition_item")
+        parentFragmentManager.commit {
+            addSharedElement(sharedImage, "image_transition_item")
+            addSharedElement(sharedText, "text_transition_item")
+            replace<CarDetailsFragment>(R.id.fragment_container, args = bundle)
+            addToBackStack(null)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _adapter = CarAdapter(carList, parentFragmentManager, this)
+//        _adapter = CarAdapter(carList, parentFragmentManager, this)
+        _adapter = CarAdapter(carList, this)
     }
 
     override fun onCreateView(

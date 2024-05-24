@@ -8,6 +8,8 @@ import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -16,8 +18,7 @@ import com.example.m8_animation_sharedelement_fragment.databinding.CarItemBindin
 
 class CarAdapter(
     private val carList: List<Car>,
-    private val fragmentManager: FragmentManager,
-    private val fragment: Fragment
+    private val fragment: RecyclerViewFragment
 ) : RecyclerView.Adapter<CarAdapter.CarHolder>() {
 
     inner class CarHolder(val item: View) : RecyclerView.ViewHolder(item) {
@@ -26,15 +27,7 @@ class CarAdapter(
             carImage.setImageResource(car.imageId)
             carName.text = car.carName
             item.setOnClickListener {
-                val bundle = Bundle().apply {
-                    putInt(CarDetailsFragment.POSITION, adapterPosition)
-                }
-                fragmentManager.commit {
-                    replace<CarDetailsFragment>(R.id.fragment_container, args = bundle)
-                    addSharedElement(carImage, fragment.getString(R.string.image_transition_name))
-                    addSharedElement(carName, fragment.getString(R.string.text_transition_name))
-                    addToBackStack(null)
-                }
+                fragment.commit(sharedImage = carImage, sharedText = carName, adapterPosition)
             }
         }
     }

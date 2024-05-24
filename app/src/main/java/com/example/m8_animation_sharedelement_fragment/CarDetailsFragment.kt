@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.transition.TransitionInflater
 import com.example.m8_animation_sharedelement_fragment.databinding.FragmentCarDetailsBinding
 
@@ -12,8 +13,10 @@ class CarDetailsFragment : Fragment() {
     companion object {
         const val POSITION = "position"
     }
+
     private var _binding: FragmentCarDetailsBinding? = null
     private val binding get() = _binding!!
+
     // TODO: Rename and change types of parameters
     private var _adapterPosition: Int? = null
 
@@ -36,6 +39,9 @@ class CarDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ViewCompat.setTransitionName(binding.carImage, "image_transition_item")
+        ViewCompat.setTransitionName(binding.carName, "text_transition_item")
+
         with(binding) {
             val id = _adapterPosition!!
             val car = carList[id]
